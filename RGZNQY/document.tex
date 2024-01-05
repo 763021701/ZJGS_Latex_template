@@ -85,37 +85,6 @@
 	framexleftmargin=2em
 }
 
-\makeatletter
-\renewcommand\abstract{%
-\kai\textbf{\hei{摘要：}}
-{\normalfont\xiaosihao\kai}}
-\makeatother
-
-\newenvironment{enabstract}
-
-\makeatletter
-\renewcommand\enabstract{%
-\textbf{Abstract: }
-{\normalfont\xiaosihao\mytimes}}
-\makeatother
-
-%%%% 设置 key words 属性 %%%%
-\newenvironment{keys}
-
-\makeatletter
-\renewcommand\keys{%
-\kai\textbf{\hei{关键词：}}
-{\normalfont\xiaosihao\hei}}
-\makeatother
-
-\newenvironment{enkeys}
-
-\makeatletter
-\renewcommand\enkeys{%
-\textbf{Key words: }
-{\normalfont\xiaosihao\mytimes}}
-\makeatother
-
 % **************************************
 % *      数学符号                       *
 % **************************************
@@ -174,6 +143,47 @@
 \makeatother
 \setlength{\parindent}{2em}  %中文缩进两个汉字位
 
+% ************************************** %
+\newenvironment{preface}{%
+\thispagestyle{empty}
+\begin{center}
+	\textbf{\hei\sanhao{前言}}
+\end{center}
+\par
+{\normalfont\xiaosihao}
+}
+
+\makeatletter
+\renewcommand\abstract{%
+\kai\textbf{\hei{摘要：}}
+{\normalfont\xiaosihao\kai}}
+\makeatother
+
+\newenvironment{enabstract}
+
+\makeatletter
+\renewcommand\enabstract{%
+\textbf{Abstract: }
+{\normalfont\xiaosihao\mytimes}}
+\makeatother
+
+%%%% 设置 key words 属性 %%%%
+\newenvironment{keys}
+
+\makeatletter
+\renewcommand\keys{%
+\kai\textbf{\hei{关键词：}}
+{\normalfont\xiaosihao\hei}}
+\makeatother
+
+\newenvironment{enkeys}
+
+\makeatletter
+\renewcommand\enkeys{%
+\textbf{Key words: }
+{\normalfont\xiaosihao\mytimes}}
+\makeatother
+
 
 
 \begin{document}
@@ -183,12 +193,12 @@
 \begin{titlepage}
 	\centering
 	\includegraphics[width=0.64\textwidth]{zjgs_logo.ai}\par
-	\vspace{1cm}
-	{\kai\fontsize{32}{4}\selectfont 人工智能前沿技术课程报告}\par
-	\vspace{10cm}
-	{\LARGE 黄璞}\par
-	\vspace{0.2cm}
-	{\LARGE 23020090090}\par
+	\vspace{2cm}
+	{\hei\fontsize{32}{4}\selectfont 人工智能前沿技术课程报告}\par
+	\vspace{11cm}
+	{\kai\huge 黄璞}\par
+	\vspace{0.1cm}
+	{\kai\LARGE 23020090090}\par
 	\vfill
 % Bottom of the page
 	{\large \today\par}
@@ -197,14 +207,26 @@
 % **************************************
 % *             前 言                  *
 % **************************************
-\section*{\centering\bf\hei\sanhao 前 言} % 使用 * 号表示不编号
-{前言内容开始}
+\begin{preface}
+	此报告为作者学习了《人工智能前沿技术》课程后，对所学知识的凝练、总结以及与个人研究方向相结合的思考。
+	在本报告中总结了图神经网络，人工智能硬件，量子人工智能这些新兴研究领域及其在机器学习中的核心知识点，阐述了相关理念和领域发展方向。
+	报告起始于对图的基本概念及表示方法的详尽阐述，涵盖了无向图、有向图、加权图等多种类型，分析了节点中心性、连通性等重要特性，
+	并突出了图数据结构在网络分析任务中的关键作用。在此基础上，重点介绍了图神经网络（GNNs）如何突破传统特征工程的局限，实现对复杂图形数据的高效建模与深度学习。
+	进一步，针对不同层级的特征工程技术，我细致解析了节点层面、连接层面乃至全图层面的特征构建策略，
+	如节点的中心性度量、集群系数、图小块统计等局部属性，以及全局统计指标和嵌入式表示学习。
+	特别地，通过图嵌入表示学习的方法，我们可以自动获取到能够反映节点间关系的低维连续向量表示，从而为后续各类预测任务提供有力支持。
+	此外，我还总结了人工智能硬件基础知识、发展的趋势和面临的挑战，
+	以及量子计算为人工智能开辟的新前景，这些内容对于理解未来智能系统的发展潜力至关重要。
+	最后，报告结合我个人的研究方向——伪造语音检测，展示了图注意力网络（如AASIST模型）在解决此类实际问题时的创新应用，
+	通过对实验结果的分析和总结，论证了图神经网络在深度伪造识别等实际场景下的有效性和前瞻性。
+\end{preface}
 
 
 % **************************************
 % *            目 录 生 成              *
 % **************************************
 \newpage
+\pagenumbering{gobble} % 在目录部分禁用页码
 \tableofcontents
 
 
@@ -212,6 +234,9 @@
 % *            正 文 开 始              *
 % **************************************
 \newpage
+\pagenumbering{arabic} %重置页码计数器，并切换到阿拉伯数字（默认设置）
+\setcounter{page}{1} %重置页码从1开始计数
+
 \section{图神经网络理论与应用}
 
 \subsection{图的概念及基本表示}
@@ -406,12 +431,91 @@ Node2Vec是一种有偏的二阶随机游走，通过控制P,Q两个超参数，
 
 \subsection{个人研究方向——伪造语音检测}
 
-\subsection{图神经网络在伪造语音检测的应用}
+相比传统的身份认证，生物身份认证被认为是一种更加便捷有效的认证方案，这是由于生物的身份信息蕴含于自身且独一无二，因此不存在
+遗失的风险且不容易更改。声纹认证作为一种生物认证方式被越来越广泛地应用，如门禁、银行等。
+同时，由于互联网的飞速发展，用户的信息非常容易泄露，导致犯罪分子在获取用户的语音信息后，利用合成技术进行语音诈骗，威胁人们的财产安全。
+因此，研究有效的语音反欺骗技术和深度伪造语音检测技术至关重要。
+\par
+
+\subsubsection{传统的伪造语音检测技术}
+传统的伪造语音检测技术\cite{魏为民}大多基于前端-后端(FrontEnd-BackEnd)框架，前端主要用于先提取语音信息特征，后端则针对语音信息特征建立分类器。
+前端的特征提取包括频谱信息、相位特征、倒谱系数特征、动态声学特征等。后端的分类器包括支持向量机（SVM）和高斯混合模型（GMM）等。
+
+\subsubsection{基于深度学习的端到端伪造语音检测技术}
+随着深度学习的发展，深度神经网络在语音领域的应用也越来越广泛，
+基于端到端的深度卷积神经网络被证明在伪造语音检测上取得了很好的效果。
+但目前仍面临许多难题：
+\par
+（1）高度真实性和多样性：合成语音算法同样受益于深度学习技术的发展，伪造的语音能够达到非常高的逼真度，
+甚至可以模拟说话者的情绪、语调和特定口音；合成算法层出不穷，不同的算法合成出的语音所产生的与真实语音的差异性存在于语音特征的各个不同区域。
+这使得伪造语音检测模型需要非常良好的泛化性能，才能应对不同的合成算法。
+\par
+（2）缺乏通用特征：尚未发现一种适用于所有情况的稳定声纹特征或深度伪造痕迹，因此需要不断开发和优化用于识别伪造的声学特征提取方法。
+\par
+（3）对抗攻击：伪造者可能会利用对抗样本生成技术有意地制造难以被现有检测系统识破的伪造语音。
+\par
+（4）数据集不足：构建有效的语音伪造检测系统通常需要大量的真实语音和伪造语音样本进行训练，而大规模高质量的伪造语音数据往往不易获取。
 
 
+\subsection{图注意力网络在伪造语音检测的应用}
+
+最近的研究表明\cite{J. Yang}，鉴别信息（语音合成算法的区分性特征）可以同时存在于频域和时域中，鉴别信息往往取决于攻击的性质和使用的具体算法。
+之前的伪造语音检测单模型缺少同时关注频域和时域的鉴别信息，导致效果不佳，往往集成多个模型，每个模型关注不同的鉴别信息，但最终的效果会受到多模型后端分数融合时带来的对性能的影响。
+AASIST 寻求开发一个高效、单一的系统，可以在没有分数级集合的情况下检测广泛的不同欺骗攻击，它一种新颖的异构堆叠图注意力层，该层通过异构注意力机制和堆叠节点对跨越异构时域和频域的鉴别信息进行建模。
+
+\subsubsection{AASIST模型}
+
+AASIST模型\cite{J. Jung AASIST}如图\ref{fig:AASIST-Framework}所示。
+它主要主成部分包括RawNet2的编码器\cite{J. Jung RawNet2}、图模块（Graph module）、异构堆叠图注意力（Heterogeneous Stacking Graph Attention Layer， HS-GAL）、读出层（readout）组成。
+
+\begin{figure}[htbp] % 使用浮动体环境来定位图片
+	\centering % 使图片居中
+	\includegraphics[width=0.9\textwidth]{AASIST-Framework.png} % 设置图片宽度为文本宽度的90%
+	\caption{AASIST模型} % 图片标题
+	\label{fig:AASIST-Framework} % 给图片添加标签以供引用
+\end{figure}
+
+RawNet2的编码器直接从原始语音波形输入中提取高级表示$F, F \in R^{C \times S \times T}$，其中$R, S, T$分别代表通道数，频谱间隔，时间序列长度。
+图模块由图注意力网络（GAT）和图池化网络（Graph pooling）组成。两个图模块分别从域和频域两个方向处理高级表示$F$，使得它们可以同时关注不同的鉴别信息。
+\par
+Graph combination操作使得两个异构图进行结合，并输入到HS-GAL层中。
+\par
+HS-GAL的输入首先被投影到另一个隐空间中，使得节点维数为$D_t$和$D_s$的两个图中的每一个具有共同的维数$D_{st}$。为此使用了两个全连接层，每个全连接层将一个组成子图投影到$D_{st}$的一个维度。
+HS-GAL中的异构注意力使用三个不同的投影向量来计算异构图的注意力权重。它们显示在图\ref{fig:AASIST-Framework}的$G_{st}$中，并用于确定连接边的注意力权重：
+（1）$G_s$中的节点到$G_s$（橙色节点之间的边）中的节点；
+（2） $G_s$到$G_t$和$G_t$到$G_s$的节点（点状边）；
+（3）$G_T$到$G_T$（蓝色节点之间的边）。
+栈节点（Stack node）的作用是积累异质信息，即谱域和时域之间的信息或关系。
+\par
+最后读出层输出节点的最大值和平均值，最后一个隐藏层是由使用平均值和最大值得到的两个节点与堆栈节点级联形成的。
+
+\subsubsection{实验结果分析}
+
+论文实验结果如图\ref{fig:Results}所示。
+
+\begin{figure}[htbp] % 使用浮动体环境来定位图片
+	\centering % 使图片居中
+	\includegraphics[width=0.9\textwidth]{Results.png} % 设置图片宽度为文本宽度的90%
+	\caption{AASIST实验结果\cite{J. Jung AASIST}} % 图片标题
+	\label{fig:Results} % 给图片添加标签以供引用
+\end{figure}
+
+可以看到，该论文与最近提出的最先进系统进行比较，使用 min t-DCF 和 EER 作为性能评价指标\cite{M. Todisco}。
+结果使用 min t-DCF 以升序排列显示，图中所有的结果都是单一模型的表现，论文提出的 AASIST 和 AASIST-L（轻量化的AASIST），达到了最好的单一模型结果。
+
+\subsubsection{总结与思考}
+
+AASIST模型的核心是图注意力机制，与传统注意力机制相比，每个节点可以有任意数量和类型的邻居节点，
+而且允许模型根据节点之间的关系动态地分配注意力权重，这意味着模型能够捕捉到图中任意两个节点间的复杂相互影响。
+当它分别应用在语音的频域和时域时，它能够更容易捕捉到跨时间和跨子带中的信息关系，而语音合成算法产生的伪造语音所携带的鉴别信息就存在于这些地方。
+这可能也是AASIST的性能为什么如此显著的原因。
 
 \begin{thebibliography}{4}
-	\bibitem{Butterworth}Butterworth S. On the theory of filter amplifiers[J]. Wireless Engineer, 1930, 7(6): 536-541.
+	\bibitem{J. Yang}J. Yang, R. K. Das and H. Li, “Signiﬁcance of subband features for synthetic speech detection,” IEEE Transactions on Information Forensics and Security, vol. 15, 2019.
+	\bibitem{J. Jung AASIST}J. Jung, H. Heo, et al., “AASIST: Audio Anti-Spooﬁng using Integrated Spectro-Temporal Graph Attention Networks,” in Proc. ICASSP (to appear), 2022.
+	\bibitem{J. Jung RawNet2}J. Jung, S. Kim, H. Shim et al., “Improved RawNet with Feature Map Scaling for Text-Independent Speaker Veriﬁcation Using Raw Waveforms,” in Proc. Interspeech, 2020.
+	\bibitem{M. Todisco}M. Todisco, X. Wang, V. Vestman et al., “Asvspoof 2019: Future horizons in spoofed and fake audio detection,” in Proc. Interspeech, 2019.
+    \bibitem{魏为民} 魏为民,刘畅,才智等.合成语音检测方法的研究现状及展望[J].上海电力大学学报,2022,38(01):75-81.
 \end{thebibliography}
 
 
